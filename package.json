@@ -17,6 +17,7 @@
     "git-cz": "^4.9.0",
     "semantic-release": "^21.0.3"
   },
+  "private": true,
   "config": {
     "commitizen": {
       "path": "git-cz"
