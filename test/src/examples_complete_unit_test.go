@@ -36,6 +36,6 @@ func TestECSCompleteValidation(t *testing.T) {
 		},
 	}
 
-	output := terraform.InitAndPlan(t, terratestOptions)
-	assert.Contains(t, output, "2 to add, 0 to change, 0 to destroy", "Plan OK and should attempt to create 2 resources")
+	output := terraform.InitAndPlan(t, terraformOptions)
+	assert.Contains(t, output, "7 to add, 0 to change, 0 to destroy", "Plan OK and should attempt to create 7 resources")
 }

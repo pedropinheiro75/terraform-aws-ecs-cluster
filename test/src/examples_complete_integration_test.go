@@ -37,15 +37,15 @@ func TestExamplesComplete(t *testing.T) {
 
 	tempTestFolder := testStructure.CopyTerraformFolderToTemp(t, rootFolder, terraformFolderRelativeToRoot)
 
-	testStructure.RunTestStage(t, "bootstrap", func() {
-		randID := strings.ToLower(random.UniqueId())
-		testStructure.SaveString(t, tempTestFolder, SuffixKey, randID)
-	})
-
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
 	defer testStructure.RunTestStage(t, "teardown", func() {
 		terraformOptions := testStructure.LoadTerraformOptions(t, tempTestFolder)
 		cleanup(t, terraformOptions, tempTestFolder)
+	})
+
+	testStructure.RunTestStage(t, "bootstrap", func() {
+		randID := strings.ToLower(random.UniqueId())
+		testStructure.SaveString(t, tempTestFolder, SuffixKey, randID)
 	})
 
 	// Apply the infrastructure
@@ -76,7 +76,7 @@ func TestExamplesComplete(t *testing.T) {
 
 		// Verify we're getting back the outputs we expect
 		// Ensure we get the attribute included in the ID
-		assert.Equal(t, "example-test", name)
+		assert.Equal(t, "example-test-"+suffix, name)
 		assert.Contains(t, id, "example-test")
 		assert.Contains(t, arn, "example-test")
 
@@ -113,12 +113,6 @@ func TestExamplesCompleteDisabled(t *testing.T) {
 	//os.Setenv("SKIP_destroy", "true")
 
 	tempTestFolder := testStructure.CopyTerraformFolderToTemp(t, rootFolder, terraformFolderRelativeToRoot)
-
-	// At the end of the test, run `terraform destroy` to clean up any resources that were created
-	defer testStructure.RunTestStage(t, "teardown", func() {
-		terraformOptions := testStructure.LoadTerraformOptions(t, tempTestFolder)
-		cleanup(t, terraformOptions, tempTestFolder)
-	})
 
 	// Apply the infrastructure
 	testStructure.RunTestStage(t, "apply", func() {

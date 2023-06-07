@@ -9,26 +9,17 @@ Supports [Amazon ECS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userg
 ### Basic
 
 ```hcl
-module "vpc" {
-...
-}
-
-module "subnets" {
-...
-}
-
 module "ecs_cluster" {
   source  = "../.."
-  enabled = var.enabled
+  enabled = true
 
-  name        = var.name
-  environment = var.environment
+  name        = "example"
+  environment = "test"
 
   container_insights_enabled      = true
   capacity_providers_fargate      = true
   capacity_providers_fargate_spot = true
 }
-
 ```
 
 ## Requirements
