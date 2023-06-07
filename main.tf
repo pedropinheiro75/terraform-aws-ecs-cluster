@@ -1,6 +1,6 @@
 locals {
   enabled      = var.enabled
-  name         = "${var.name}-${var.environment}"
+  name         = "${var.name}-${var.environment}${var.suffix == "" ? var.suffix : "-" + var.suffix}"
   cluster_name = join("", aws_ecs_cluster.default.*.name)
 
   capacity_providers = [
