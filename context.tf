@@ -20,6 +20,12 @@ variable "name" {
     EOT
 }
 
+variable "suffix" {
+  type        = string
+  default     = ""
+  description = "Suffix to be added to the name of each resource"
+}
+
 variable "role_arn" {
   type        = string
   default     = null
